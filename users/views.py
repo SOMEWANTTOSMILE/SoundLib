@@ -2,6 +2,8 @@ from djoser.views import UserViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from users.serializers import FillingProfileSerializer
+from users.models import CustomUser
 
 
 # Create your views here.
@@ -22,3 +24,21 @@ class ActivateUser(UserViewSet):
             'uid': self.kwargs['uid'],
             'token': self.kwargs['token']}
         return serializer_class(*args, **kwargs)
+
+
+class FillingProfileView(APIView):
+    permission_classes = (IsAuthenticated, )
+    serializer_class = FillingProfileSerializer
+
+    def put(self, request, *args, **kwargs):
+        user = CustomUser.objects.get(email=request.user)
+        data = request.data
+        serializer = FillingProfileSerializer(data=request.data, instance=user, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'post': serializer.data})
+
+
+
+
+

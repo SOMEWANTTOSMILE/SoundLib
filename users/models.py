@@ -6,13 +6,13 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 
 class CustomUserManager(BaseUserManager):
 
-    def create_user(self, email, password, alias, **extra_fields):
+    def create_user(self, email, password, **extra_fields):
         if not email:
             raise ValueError('Email is required')
         if not password:
             raise ValueError('Password is required')
         email = self.normalize_email(email)
-        user = self.model(email=email, alias=alias, **extra_fields)
+        user = self.model(email=email, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -39,6 +39,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
+
+    def update(self, instance, validated_data):
+        instance.alias = validated_data.get('alias')
+        instance.phone_number = validated_data.get('phone_number')
+        instance.first_name = validated_data.get('first_name')
+        instance.last_name = validated_data.get('last_name')
+        instance.save()
+        return instance
+
+
 
     def __str__(self):
         return self.email
