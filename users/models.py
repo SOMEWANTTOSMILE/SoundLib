@@ -32,7 +32,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=100, blank=True, null=True, default=None)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_premium = models.BooleanField(default=False)
     is_notification_required = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
@@ -48,7 +47,14 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         instance.save()
         return instance
 
+    def has_premium(self):
+        from premium.models import UserSubscription
 
+        user_sub = UserSubscription.objects.filter(user=self.id)
+        is_active = user_sub.filter(is_active=True)
+        if not is_active:
+            return False
+        return True
 
     def __str__(self):
         return self.email

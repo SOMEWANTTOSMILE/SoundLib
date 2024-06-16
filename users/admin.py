@@ -1,3 +1,5 @@
 from django.contrib import admin
+from premium.models import ServiceProduct
 
-# Register your models here.
+
+admin.site.register(ServiceProduct)
