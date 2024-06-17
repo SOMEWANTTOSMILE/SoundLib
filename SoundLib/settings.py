@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     'djoser',
     'rest_framework',
+    "premium.apps.PremiumConfig"
 ]
 
 MIDDLEWARE = [
