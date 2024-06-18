@@ -33,7 +33,7 @@ class UserPremiumView(APIView):
 
     def get(self, request):
         user = request.user
-        queryset = UserSubscription.objects.all()
+        queryset = UserSubscription.objects.filter(user=user).all()
         serializer = UserPremiumSerializer(queryset, many=True)
         return Response(serializer.data)
 
