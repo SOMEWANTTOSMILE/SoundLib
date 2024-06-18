@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     'djoser',
     'rest_framework',
-    "premium.apps.PremiumConfig"
+    "premium.apps.PremiumConfig",
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -194,3 +195,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+CELERY_BROKER_URL = f'redis://{env("CELERY_HOST")}:{env("CELERY_PORT")}'
+CELERY_RESULT_BACKEND = f'redis://{env("CELERY_HOST")}:{env("CELERY_PORT")}'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
