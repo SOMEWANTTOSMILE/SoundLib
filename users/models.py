@@ -47,7 +47,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         instance.save()
         return instance
 
-    def has_premium(self):
+    def has_premium(self, user):
         from premium.models import UserSubscription
 
         user_sub = UserSubscription.objects.filter(user=self.id)

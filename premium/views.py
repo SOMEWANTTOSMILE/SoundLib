@@ -6,7 +6,6 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from premium.serializers import PremiumInfoSerializer, GetPremiumSerializer, UserPremiumSerializer
 from premium.models import ServiceProduct, UserSubscription
 from users.models import CustomUser
-from premium.tasks import some_task
 
 
 class PremiumInfoListView(ListAPIView):
