@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser
+from datetime import datetime, timedelta
 
 
 subscription_period = (
@@ -26,4 +27,7 @@ class UserSubscription(models.Model):
     subscribed_on = models.DateTimeField(null=True)
     expiring_on = models.DateTimeField(null=True)
     subscription_period = models.CharField(max_length=255, choices=subscription_period, blank=False)
+
+    def __str__(self):
+        return f'{self.user}, {self.is_active}, {self.expiring_on}'
 

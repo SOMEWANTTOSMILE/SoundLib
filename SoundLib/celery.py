@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 import os
 from celery import Celery
+from celery.schedules import crontab
 from django.conf import settings
 
 # Set the default Django settings module for the 'celery' program.
@@ -13,10 +14,15 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load tasks from all registered Django app configs.
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'every': {
-        'task': 'premium.tasks.some_scheduled_task',
-        'schedule': 10
+    'check_premium': {
+        'task': 'premium.tasks.check_premium',
+        'schedule': crontab(minute='0', hour='0')
+    },
+    'subscription_reminder': {
+        'task': 'premium.tasks.subscription_reminder',
+        'schedule': crontab(minute='0', hour='0')
     }
 }
