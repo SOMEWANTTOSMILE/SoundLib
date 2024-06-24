@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'djoser',
     'rest_framework',
     "premium.apps.PremiumConfig",
-    'django_celery_beat'
+    'django_celery_beat',
+    "music.apps.MusicConfig"
 ]
 
 MIDDLEWARE = [

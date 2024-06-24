@@ -19,10 +19,10 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'check_premium': {
         'task': 'premium.tasks.check_premium',
-        'schedule': crontab(minute='0', hour='0')
+        'schedule': crontab(minute='*/1')
     },
     'subscription_reminder': {
         'task': 'premium.tasks.subscription_reminder',
-        'schedule': crontab(minute='0', hour='0')
+        'schedule': crontab(minute='*/1')
     }
 }

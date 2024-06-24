@@ -32,11 +32,13 @@ def subscription_reminder():
     user_sub = UserSubscription.objects.filter(is_active=True)
     for user in user_sub:
         time_difference = user.expiring_on - time_now
-        if time_difference < timedelta(days=7):
+        if time_difference < timedelta(days=7) and user.is_notificated is False:
             send_mail(
                 'Подписка скоро истечет',
                 f'Подписка истечет {user.expiring_on}',
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[user.user]
             )
+            user.is_notificated = True
+            user.save()
 
