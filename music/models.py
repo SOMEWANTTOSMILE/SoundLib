@@ -2,7 +2,7 @@ from django.db import models
 from users.models import CustomUser
 
 
-class Categories(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
 
@@ -22,7 +22,7 @@ class Album(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    categories = models.ForeignKey(Categories, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

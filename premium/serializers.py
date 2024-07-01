@@ -26,6 +26,7 @@ class GetPremiumSerializer(serializers.Serializer):
         expiring_on = subscribed_on + timedelta(periods[f'{subscription_period}'])
         validated_data['subscribed_on'] = subscribed_on
         validated_data['expiring_on'] = expiring_on
+        validated_data['is_notificated'] = False
         user = self.context['request'].user
         user.save()
         return UserSubscription.objects.create(**validated_data, user=user)

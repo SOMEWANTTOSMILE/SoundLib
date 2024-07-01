@@ -6,7 +6,6 @@ from users.serializers import FillingProfileSerializer
 from users.models import CustomUser
 
 
-# Create your views here.
 class TestLoginView(APIView):
     permission_classes = (IsAuthenticated, )
 
