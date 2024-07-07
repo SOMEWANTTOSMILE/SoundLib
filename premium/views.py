@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -34,5 +33,6 @@ class UserPremiumView(APIView):
         queryset = UserSubscription.objects.filter(user=user).all()
         serializer = UserPremiumSerializer(queryset, many=True)
         return Response(serializer.data)
+
 
 

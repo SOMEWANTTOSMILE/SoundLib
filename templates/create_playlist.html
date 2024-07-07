@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Create Playlist</h1>
+        <form action="/music/create-playlist/" method="post" enctype= multipart/form-data>
+            {% csrf_token %}
+            {{ form }}
+        <button type="submit" class="save btn bth-default">Save</button>
+    </form>
+{% endblock %}

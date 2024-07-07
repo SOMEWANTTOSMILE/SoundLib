@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="category">
+<h1>песни</h1>
+    {% for one_song in song %}
+        <h3><a href="http://localhost:8000/music/song/{{ one_song.id }}" style="color: black">{{ one_song.title }}</a></h3>
+    {% endfor %}
+</div>
+
+{% endblock %}

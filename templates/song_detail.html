@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="song">
+    <img src="{{ song.image.url }}" width="250" height="250" alt="">
+    <h1> {{ song.title }}</h1>
+    <h3>{{ song.artist }}</h3>
+        <h3><a href="http://localhost:8000/music/album/{{ song.album_id }}" style="color: black">{{ song.album }}</a></h3>
+    <p>{{ song.description}}</p>
+    </div>
+    <div class ="song">
+                <audio controls src="{{song.song.url}}"></audio>
+    </div>
+
+{% endblock %}

@@ -1,9 +1,15 @@
+from django.shortcuts import render
+from django.views import View
 from djoser.views import UserViewSet
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from users.serializers import FillingProfileSerializer
 from users.models import CustomUser
+from django.views.generic.edit import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from users.forms import CustomUserCreationForm
 
 
 class TestLoginView(APIView):
@@ -36,6 +42,12 @@ class FillingProfileView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'post': serializer.data})
+
+
+class SignUp(CreateView):
+    form_class = CustomUserCreationForm
+    template_name = 'registration/signup.html'
+    success_url = reverse_lazy('login')
 
 
 

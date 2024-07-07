@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="artist">
+    <img src="{{ artist.image.url }}" width="250" height="250" alt="">
+    <h1> {{ artist.name }}</h1>
+    <h3>{{ artist.description}}</h3>
+    <h1>Альбомы</h1>
+        {% for one_album in album %}
+             <img src="{{ one_album.image.url }}" width="150" height="150" alt="">
+            <h3><a href="http://localhost:8000/music/album/{{ one_album.id }}" style="color: black">{{ one_album.title }}</a></h3>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

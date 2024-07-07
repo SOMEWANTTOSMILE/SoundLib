@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="category">
+    {% for one_category in category %}
+        <h1><a href="http://localhost:8000/music/category/{{ one_category.id }}" style="color: black">{{ one_category.name }}</a></h1>
+    {% endfor %}
+</div>
+
+{% endblock %}
