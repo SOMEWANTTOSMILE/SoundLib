@@ -11,12 +11,6 @@ class AddSongPlayListSerializer(serializers.Serializer):
         return PlaylistSong.objects.create(**validated_data)
 
 
-class AllAlbumInfo(serializers.ModelSerializer):
-    class Meta:
-        model = Album
-        fields = ('id', 'title', "description", "artist", 'category')
-
-
 class MyPlayListSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlayList

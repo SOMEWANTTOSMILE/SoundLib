@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="all-artist">
+    <form class="form-inline my-2 my-lg-0" action="{% url 'all-artist' %}">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <h1 style="line-height: 70px">Songs</h1>
+    {% for one_artist in artist %}
+    <img src="{{ one_artist.image.url }}" width="250" height="250" alt="">
+    <h3><a href="http://localhost:8000/music/artist/{{ one_artist.id }}" style="color: black">{{ one_artist.name }}</a></h3>
+    {% endfor %}
+    </div>
+
+{% endblock %}

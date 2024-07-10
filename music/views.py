@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from music.serializers import (AddSongPlayListSerializer, AllAlbumInfo, MyPlayListSerializer,
+from music.serializers import (AddSongPlayListSerializer, MyPlayListSerializer,
                                SongInPlayListSerializer, AddFavoriteSongSerializer, AddFavoriteAlbumSerializer,
                                AddFavoriteArtistSerializer)
 from music.models import PlaylistSong, PlayList, Album, Song, Artist, Category
@@ -21,12 +21,6 @@ class AddSongPlaylistView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'post': serializer.data})
-
-
-class AllAlbumInfoListView(ListAPIView):
-    queryset = Album.objects.all()
-    serializer_class = AllAlbumInfo
-    permission_classes = (AllowAny,)
 
 
 class MyPlayListView(APIView):
@@ -142,3 +136,43 @@ class AddFavoriteArtistView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'post': serializer.data})
+
+
+class AllAlbumView(View):
+
+    def get(self, request):
+
+        search_query = request.GET.get('search', '')
+
+        if search_query:
+            album = Album.objects.filter(title__icontains=search_query)
+        else:
+            album = Album.objects.all()
+
+        return render(request, "all_album.html", {'album': album})
+
+
+class AllSongView(View):
+
+    def get(self, request):
+        search_query = request.GET.get('search', '')
+
+        if search_query:
+            song = Song.objects.filter(title__icontains=search_query)
+        else:
+            song = Song.objects.all()
+
+        return render(request, 'all_song.html', {'song': song})
+
+
+class AllArtistView(View):
+
+    def get(self, request):
+        search_query = request.GET.get('search', '')
+
+        if search_query:
+            artist = Artist.objects.filter(name__icontains=search_query)
+        else:
+            artist = Artist.objects.all()
+
+        return render(request, 'all-artist.html', {'artist': artist})
